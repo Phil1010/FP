@@ -59,9 +59,10 @@ successful_outcomes = cur.fetchall()[0][0]
 cur.execute("SELECT COUNT(*) FROM SPACEXTABLE WHERE Landing_Outcome LIKE 'Failure%';")
 failed_outcomes = cur.fetchall()[0][0]
 # print("Nombre total de résultats de mission réussis :", successful_outcomes)
+# print("Nombre total de résultats de mission réussis :", failed_outcomes)
 
 #List the names of the booster_versions which have carried the maximum payload mass. Use a subquery
-cur.execute("SELECT Booster_Version FROM SPACEXTABLE WHERE PAYLOAD_MASS__KG_ = (SELECT MAX(PAYLOAD_MASS__KG_) FROM SPACEXTABLE);")
+cur.execute("SELECT DISTINCT Booster_Version FROM SPACEXTABLE WHERE PAYLOAD_MASS__KG_ = (SELECT MAX(PAYLOAD_MASS__KG_) FROM SPACEXTABLE);")
 max_payload_booster = cur.fetchall()
 # print("Noms des versions de propulseur qui ont transporté la charge utile maximale :")
 # for booster in max_payload_booster:
